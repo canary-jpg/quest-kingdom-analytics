@@ -1,0 +1,87 @@
+version: 2
+
+models:
+  - name: stg_players
+    description: Cleaned player data
+    columns:
+      - name: player_id
+        tests:
+          - unique
+          - not_null
+      - name: installed_at
+        tests:
+          - not_null
+      - name: player_segment
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['whale', 'dolphin', 'minnow', 'non_payer']
+      - name: device_type
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['ios', 'android']
+                
+  - name: stg_sessions
+    description: Cleaned session data
+    columns:
+      - name: session_id
+        tests:
+          - unique
+          - not_null
+      - name: player_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_players')
+                field: player_id
+      - name: session_started_at
+        tests:
+          - not_null
+          
+  - name: stg_events
+    description: Cleaned event data
+    columns:
+      - name: event_id
+        tests:
+          - unique
+          - not_null
+      - name: player_id
+        tests:
+          - not_null
+      - name: event_name
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['tutorial_completed', 'level_completed', 'boss_defeated']
+                
+  - name: stg_iap_transactions
+    description: Cleaned IAP transaction data
+    columns:
+      - name: transaction_id
+        tests:
+          - unique
+          - not_null
+      - name: player_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_players')
+                field: player_id
+      - name: price_usd
+        tests:
+          - not_null
+          
+  - name: stg_ad_impressions
+    description: Cleaned ad impression data
+    columns:
+      - name: ad_id
+        tests:
+          - unique
+          - not_null
+      - name: player_id
+        tests:
+          - not_null

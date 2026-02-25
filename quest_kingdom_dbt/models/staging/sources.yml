@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw Quest Kingdom game data
+    schema: main
+    
+    tables:
+      - name: players
+        description: Player profiles with install date and segmentation
+            
+      - name: sessions
+        description: Gaming sessions with progression data
+            
+      - name: events
+        description: In-game events (tutorial, levels, bosses)
+            
+      - name: iap_transactions
+        description: In-app purchase transactions
+            
+      - name: ad_impressions
+        description: Ad impressions and clicks

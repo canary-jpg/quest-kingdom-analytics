@@ -1,0 +1,33 @@
+name: 'quest_kingdom'
+version: '1.0.0'
+
+profile: 'quest_kingdom'
+
+model-paths: ["models"]
+target-path: "target"
+seed-paths: ["data"]
+test-paths: ["tests"]
+
+models:
+  question_kingdom:
+    +materialized: view
+
+  staging:
+    +materialized: view
+    +schema: staging
+
+  marts:
+    +materialized: table
+    +schema: marts
+
+  core:
+    +materialized: table
+
+  retention:
+    +materialized: table
+
+  monetization:
+    +materialized: table
+
+  product:
+    +materialized: table
