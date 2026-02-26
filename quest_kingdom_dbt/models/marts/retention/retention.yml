@@ -1,0 +1,105 @@
+version: 2
+
+models:
+  - name: fct_daily_active_users
+    description: Daily activity spine showing which players were active each day
+    columns:
+      - name: player_id
+        description: Player identifier
+        tests:
+          - not_null
+      - name: activity_date
+        description: Date player was active
+        tests:
+          - not_null
+      - name: sessions_that_day
+        description: Number of sessions on this day
+      - name: days_since_install
+        description: Days from install to this activity
+      - name: cohort_week
+        description: Week player installed (Monday)
+      - name: cohort_month
+        description: Month player installed
+
+  - name: rpt_d1_d7_d30_retention
+    description: Classic D1/D7/D30 retention metrics per player
+    columns:
+      - name: player_id
+        description: Player identifier
+        tests:
+          - unique
+          - not_null
+      - name: retention_d1
+        description: 1 if player was active exactly 1 day after intall
+      - name: retention_d7
+        description: 1 if player was active exactly 7 days after install
+      - name: retained_d30
+        description: 1 if player was active exactly 30 days after install
+      - name: active_d7_window
+        description: 1 if player was active between days 6-8 (more forgiving)
+      - name: active_d30_window
+        description: 1 if player was active between days 28-32
+      - name: total_active_days
+        description: Total number of distinct days player was active
+
+  - name: rpt_cohort_retention
+    description: Weekly cohort retention table (wide format)
+    columns:
+      - name: cohort_week
+        description: Week cohort started (Monday)
+        tests:
+          - unique
+          - not_null
+      - name: cohort_size
+        description: Number of players in this cohort
+        tests:
+          - not_null
+      - name: week_0
+        description: Retention percentage in week 0 (install week)
+      - name: week_1
+        description: Retention percentage in week 1
+      - name: week_2
+        description: Retention percentage in week 2
+      - name: week_3
+        description: Retention percentage in week 3
+      - name: week_4
+        description: Retention percentage in week 4
+      - name: week_5
+        description: Retention percentage in week 5
+      - name: week_6
+        description: Retention percentage in week 6
+      - name: week_7
+        description: Retention percentage in week 7
+      - name: week_8
+        description: Retention percentage in week 8
+      - name: week_9
+        description: Retention percentage in week 9
+      - name: week_10
+        description: Retention percentage in week 10
+      - name: week_11
+        description: Retention percentage in week 11
+      - name: week_12
+        description: Retention percentage in week 12
+
+  - name: rpt_retention_curves
+    description: Retention data in long format for charting
+    columns:
+      - name: cohort_week
+        description: Week cohort started
+        tests:
+          - not_null
+      - name: weeks_since_install
+        description: Weeks since install (0-12)
+        tests:
+          - not_null
+      - name: cohort-size
+        description: Total players in cohort
+      - name: active_users
+        description: Players still active this week
+      - name: retention_rate
+        description: Decimal retention rate (0-1)
+      - name: retention_pct
+        description: Percentage retention (0-100)
+      - name: cohort_label
+        description: Human-readable cohort label for charts
+        
