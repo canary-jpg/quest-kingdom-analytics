@@ -125,7 +125,11 @@ final as (
         -- derived flags
         coalesce(ps.total_sessions, 0) > 0 as is_activated,
         coalesce(pi.total_purchases, 0) > 0 as is_payer,
-        coalesce(pa.total_ad_impressions, 0) > 0 as has_seen_ads
+        coalesce(pa.total_ad_impressions, 0) > 0 as has_seen_ads,
+
+        --cohort fields
+        date_trunc('week', p.installed_at)::date as cohort_week,
+        date_trunc('month', p.installed_at)::date as cohort_month
 
     from players p
     left join player_sessions ps on p.player_id = ps.player_id

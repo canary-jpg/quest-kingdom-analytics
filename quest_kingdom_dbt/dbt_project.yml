@@ -9,25 +9,13 @@ seed-paths: ["data"]
 test-paths: ["tests"]
 
 models:
-  question_kingdom:
-    +materialized: view
-
-  staging:
-    +materialized: view
-    +schema: staging
-
-  marts:
-    +materialized: table
-    +schema: marts
-
-  core:
-    +materialized: table
-
-  retention:
-    +materialized: table
-
-  monetization:
-    +materialized: table
-
-  product:
-    +materialized: table
+  quest_kingdom:
+    staging:
+      +materialized: view
+      
+    marts:
+      core:
+        +materialized: table
+      
+      retention:
+        +materialized: table
