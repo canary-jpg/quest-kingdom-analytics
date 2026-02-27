@@ -19,3 +19,6 @@ models:
       
       retention:
         +materialized: table
+
+      monetization:
+        +materialized: table
