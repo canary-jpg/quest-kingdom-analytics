@@ -1,0 +1,90 @@
+version: 2
+
+models:
+  - name: rpt_daily_revenue
+    description: Daily revenue metrics including ARPDAU, ARPPU, and conversion rates
+    columns:
+      - name: revenue_date
+        description: Date of revenue activity
+        tests:
+          - unique
+          - not_null
+      - name: dau
+        description: Daily active users
+      - name: payer_users
+        description: Users who made a purchase this day
+      - name: iap_revenue
+        description: In-app purchase revenue (USD)
+      - name: ad_revenue
+        description: Ad revenue (USD)
+      - name: total_revenue
+        description: Total revenue (IAP + ads)
+      - name: arpdau
+        description: Average revenue per daily active user
+      - name: arppu
+        description: Average revenue per paying user
+      - name: daily_conversion_rate
+        description: Percent of DAU who made a purchase
+  
+  - name: rpt_player_ltv
+    description: Player lifetime value with cohort and behavioral attributes
+    columns:
+      - name: player_id
+        description: Player identifier
+        tests:
+          - unique
+          - not_null
+      - name: cohort_week
+        description: Week player installed
+      - name: total_revenue
+        description: Total revenue from this player
+      - name: days_to_first_purchase
+        description: Days from install to first purchase
+      - name: converter_type
+        description: Fast/Week 1/Month 1/Late/Non-Payer
+      - name: revenue_per_active_day
+        description: Revenue divided by active days
+      - name: revenue_per_session
+        description: Revenue divided by total sessions
+  
+  - name: rpt_conversion_funnel
+    description: Conversion funnel from install to first purchase
+    columns:
+      - name: player_id
+        description: Player indentifier
+        tests:
+          - unique
+          - not_null
+      - name: stage_1_installed
+        description: Installed the gaem (always true)
+      - name: stage_2_tutorial_completed
+        description: Completed tutorial
+      - name: stage_3_had_session
+        description: Had at least one session
+      - name: stage_4_reached_level_5
+        description: Reached level 5
+      - name: stage_5_first_purchase
+        description: Made first purchase
+  
+  - name: rpt_sku_performance
+    description: SKU-level revenue and purchase analysis
+    columns:
+      - name: sku
+        description: Product SKU
+        tests:
+          - unique
+          - not_null
+      - name: total_purchases
+        description: Total number of purchases
+      - name: unique_buyers
+        description: Number of unique players who bought this SKU
+      - name: total_revenue
+        description: Total revenue from this SKU
+      - name: whale_revenue
+        description: Revenue from the whale segment
+      - name: dolphin_revenue
+        description: Revenue from the dolphin segment
+      - name: minnow_revenue
+        description: Revenue from the minnow segment
+      - name: revenue_share_pct
+        description: Percent to total revenue from this SKU
