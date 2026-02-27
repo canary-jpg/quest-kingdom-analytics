@@ -22,3 +22,6 @@ models:
 
       monetization:
         +materialized: table
+      
+      product:
+        +materialized: table
