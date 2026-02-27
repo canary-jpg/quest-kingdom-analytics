@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: rpt_level_progression
+    description: Player progression through levels with velocity metrics
+    columns:
+      - name: player_id
+        description: Player identifier
+        tests:
+          - unique
+          - not_null
+      - name: max_level_reached
+        description: Highest level the player reached
+      - name: hours_to_level_5
+        description: Hours from first session to reaching level 5
+      - name: hours_to_level_10
+        description: Hours from first session to reaching level 10
+      - name: levels_per_hours
+        description: Progression velocity (levels gained per hour played)
+      - name: progression_tier
+        description: What stage of game player reached (Tutorial/Early/Mid/Late/End)
+
+  - name: rpt_level_funnel
+    description: Level completion funnel showing drop-off at each mileston
+    columns:
+      - name: level_threshold
+        description: Level mileston (1, 5, 10, 15, etc.)
+        tests:
+          - unique
+          - not_null
+      - name: players
+        description: Number of players who reached this level
+      - name: drop_off_pct
+        description: Percent who dropped off from previous mileston
+      - name: avg_hours
+        description: Average hours to reach this level
+  
+  - name: rpt_session_quality
+    description: Session engagement metrics by player
+    columns:
+      - name: player_id
+        description: Player identifier
+        tests:
+          - unique
+          - not_null
+      - name: total_sessions
+        description: Total number of sessions
+      - name: quality_sessions
+        description: Sessions 5+ mintues long
+      - name: quality_session_pct
+        description: Percent of sessions that were quality
+      - name: avg_session_duration
+        description: Average session length in minutes
+      - name: avg_days_between_sessions
+        description: Average days between sessions
+      - name: preferred_play_time
+        description: Time of day player most often plays
+      - name: engagement_tier
+        description: Power User/Engaged/Regular/Casual based on session count
+
+  - name: rpt_feature_engagement
+    description: Event-based feature usage per player
+    columns:
+      - name: player_id
+        description: Player identifier
+        tests:
+          - unique
+          - not_null
+      - name: total_events
+        description: Total events fired
+      - name: tutorial_completions
+        description: Times tutorial was completed
+      - name: level_completions
+        description: Levels completed
+      - name: boss_defeats
+        description: Bosses defeated
+      - name: events_per_session
+        description: Average events per session
+      - name: event_engagement_tier
+        description: Power User/Engaged/Active/Casual based on event count
