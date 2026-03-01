@@ -7,8 +7,8 @@ print("Loading CSV data into DuckDB...")
 #load all CSV files as tables
 tables = {
     'players': 'data/players.csv',
-    'sessions': 'data/sessions.csv',
-    'events': 'data/events.csv',
+    'sessions': 'data/sessions_fixed.csv',
+    'events': 'data/events_fixed.csv',
     'iap_transactions': 'data/iap_transactions.csv',
     'ad_impressions': 'data/ad_impressions.csv'
 }
